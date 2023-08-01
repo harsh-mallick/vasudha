@@ -97,7 +97,7 @@ const GreenButtonWithPopover = (props) => {
               overlay={popover}
             >
               <Button variant="success" onClick={handlePopoverHide}>
-                Click Me for Popover
+                Close
               </Button>
             </OverlayTrigger>
           );

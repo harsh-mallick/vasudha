@@ -9,6 +9,8 @@ import home from "../Images/home.png"
 import { useState } from 'react'
 
 const Signup = () => {
+    const dropvalue = ["Farmer", "Buyer", "Transporter"]
+    const [myValue, setMyValue] = useState();
     const [user, setUser] = useState({
         name_farmer: "",
         aadharnumber: "",
@@ -17,7 +19,9 @@ const Signup = () => {
         address: "",
         phonenumber: "",
         email: "",
-        password: ""
+        password: "",
+        role: "",
+        pincode: "",
     });
 
     let name, value;
@@ -31,7 +35,7 @@ const Signup = () => {
 
     const postData = async (e) => {
         e.preventDefault();
-        const { name_farmer, aadharnumber, locality, state, address, phonenumber, email, password } = user
+        const { name_farmer, aadharnumber, locality, state, address, phonenumber, email, password, role, pincode } = user
         console.log(user)
 
         const res = await fetch("/farmer-signup", {
@@ -40,7 +44,7 @@ const Signup = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                name_farmer, aadharnumber, locality, state, address, phonenumber, email, password
+                name_farmer, aadharnumber, locality, state, address, phonenumber, email, password, role, pincode
             })
         });
         const data = await res.json();
@@ -92,6 +96,12 @@ const Signup = () => {
                                     <img src={at} alt="Name" className="icons-signup" />
                                     <input type="email" className='input-signup' required placeholder="Enter your Email ID" onChange={handleInput} name="email" value={user.email} />
                                 </div>
+                                <div className="input-box-signup">
+                                    <label className="label-signup" htmlFor="Pincode">Enter your Pincode</label>
+                                    <br />
+                                    <img src={keys} alt="Name" className="icons-signup" />
+                                    <input type="password" required placeholder="Enter your Pincode" className='input-signup' onChange={handleInput} name="pincode" value={user.pincode} />
+                                </div>
                             </div>
                             <div className="leftpanel-signup">
                                 <div className="input-box-signup">
@@ -118,20 +128,20 @@ const Signup = () => {
                                     <img src={keys} alt="Name" className="icons-signup" />
                                     <input type="password" required placeholder="Create a new Password" className='input-signup' onChange={handleInput} name="password" value={user.password} />
                                 </div>
+                                <div className="input-box-signup, dropdown-signup">
+                                    <label htmlFor="Role">Enter Your Profession: </label>
+                                    <select className="select-signup" onChange={handleInput} name="role" value={user.role}>
+                                        Define your Role
+                                        {dropvalue.map((dropvalues, idx) => (
+                                            <option className="option-signup" key={idx}>{dropvalues}</option>
+                                        ))}
+
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div className="input-box-signup, dropdown-signup">
-                            <label htmlFor="Role">Enter Your Profession: </label>
-                            <select className="select-signup">
-                                Define your Role
 
-                                <option className="option-signup" disabled="" selected="">Select Your Role</option>
-                                <option className="option-signup" value="Farmer">Farmer</option>
-                                <option className="option-signup" value="Transporter">Transporter</option>
-                                <option className="option-signup" value="Buyer">Wholesale Buyer</option>
 
-                            </select>
-                        </div>
                         <button type="submit" className="button-signup" onClick={postData}>Create Account</button>
                     </form>
                 </div>

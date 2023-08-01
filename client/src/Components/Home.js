@@ -51,17 +51,20 @@ const Home = () => {
         window.location.reload()
         window.localStorage.setItem("homereload", "flase")
     }
-    window.localStorage.setItem("visited", "flase")
-    if(window.localStorage.getItem("visited") === "false"){
-        window.localStorage.setItem("payload", "false")
-        window.localStorage.setItem("visited", "true")
-        window.location.reload()
-    }
     
+    window.localStorage.setItem("visited", "flase")
+    const payloadfalse = () => {
+        if(window.localStorage.getItem("visited") === "false"){
+            window.localStorage.setItem("payload", "false")
+            window.localStorage.setItem("visited", "true")
+            window.location.reload()
+        }
+    }
+    window.addEventListener("load", payloadfalse)
 
     return (
         <>
-            <div className='home-section'>
+            <div className='home-section' id = "home-section">
                 <div className="connta">
                     <div className="logo">
                     </div>

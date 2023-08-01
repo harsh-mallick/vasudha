@@ -89,6 +89,15 @@ const Navbar = () => {
                     <Link to="/team" className="a-navbar">Our Team Members</Link>
                 </nav>
             )
+        }else{
+            return (
+                <nav className='nav-navbar'>
+                    <Link to="/" className="a-navbar">Home</Link>
+                    <Link to="/login" className="a-navbar">Sign In</Link>
+                    <Link to="/signup" className="a-navbar">Sign Up</Link>
+                    <Link to="/team" className="a-navbar">Our Team Members</Link>
+                </nav>
+            )
         }
     }
     return (

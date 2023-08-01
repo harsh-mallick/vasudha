@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Buyerimg from '../Images/Wholesale.jpg'
 import { useNavigate } from 'react-router-dom';
 import '../Css/Buyer.css'
+import GreenButtonWithPopover from './GreenButtonWithPopover copy';
 
 const Buyer = () => {
   const history = useNavigate()
@@ -53,11 +54,12 @@ const Buyer = () => {
                 <img src={Buyerimg} alt="Buyer Img" className='img-buyer' />
               </div>
               <div class="card-content-buyer">
-                <h2 className='h2-buyer'>Buyer</h2>
+                <h2 className='h2-buyer'>Farmers</h2>
                 <p className='p-buyer'>
                   Name:&nbsp; {farmersdatas.name_farmer}<br/>
                   Mobile Number:&nbsp; {farmersdatas.phonenumber}<br/>
-                  Email:&nbsp; {farmersdatas.email}<br/>
+                  Email:&nbsp; {farmersdatas.email}<br/><br/>
+                  <GreenButtonWithPopover buttonName = {"Send Buying Request"}/>
                 </p>
               </div>
             </div>

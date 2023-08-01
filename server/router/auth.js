@@ -11,13 +11,14 @@ const cookieParser = require('cookie-parser');
 app.use(cors());
 app.use(cookieParser())
 const SellingRequest = require('../model/Sellingrequest')
+const BuyingRequest = require('../model/BuyingRequest')
 
 //<------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 
 
 // Consumer routes
 router.post('/farmer-signup', async (req, res) => {
-    const { name_farmer, aadharnumber, role,  locality, state, address, pincode, phonenumber, crptype, offerprice, email, password } = req.body;
+    const { name_farmer, aadharnumber, role, locality, state, address, pincode, phonenumber, crptype, offerprice, email, password } = req.body;
     console.log(req.body)
     // Checking if any field is blank
     if (!name_farmer || !aadharnumber || !role || !locality || !state || !address || !pincode || !phonenumber || !email || !password) {
@@ -57,9 +58,9 @@ router.post('/selling-request', farmerauthenticate, async (req, res) => {
     const values = `{"name_farmer": "${name_farmer}", "email_farmer": "${email_farmer}"}`
     const fvalue = JSON.parse(values)
     console.log(fvalue)
-    const {email_buyer, bprice } = req.body;
+    const { email_buyer, bprice } = req.body;
     console.log(req.body)
-    const totalvalue = {...req.body, ...fvalue}
+    const totalvalue = { ...req.body, ...fvalue }
     console.log(totalvalue)
     // Checking if any field is blank
     if (!name_farmer || !email_buyer) {
@@ -87,6 +88,49 @@ router.post('/selling-request', farmerauthenticate, async (req, res) => {
         console.log(error);
     }
 });
+
+router.post('/buying-request', farmerauthenticate, async (req, res) => {
+    const name_farmer = req.rootUser.name_farmer
+    const email_buyer = req.rootUser.email
+    const values = `{"name_farmer": "${name_farmer}", "email_buyer": "${email_buyer}"}`
+    const fvalue = JSON.parse(values)
+    console.log(fvalue)
+    const { email_farmer, bprice } = req.body;
+    console.log(req.body)
+    const totalvalue = { ...req.body, ...fvalue }
+    console.log(totalvalue)
+    // Checking if any field is blank
+    if (!name_farmer || !email_farmer) {
+        console.log("Cannot cannot retrieve data as field is/ are blank")
+        return res.status(422).json({ error: "None of the fields can be blank" });
+    }
+
+    try {
+
+        // Registering a new user 
+        const Request = new BuyingRequest(totalvalue);
+        console.log(Request)
+
+        // Checking that registration successful or failed
+        try {
+            await Request.save();
+
+            res.status(200).json({ message: "Data added successfully" });
+
+        } catch (error) {
+            res.status(500).json({ error: "Failed to add data" });
+            console.log(error)
+        }
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+
+
+
+
+
 
 // Post Request: Making a Consumer Login
 router.post('/farmer-signin', async (req, res) => {
@@ -136,28 +180,36 @@ router.get('/getFarmerdata', farmerauthenticate, (req, res) => {
 })
 router.get('/getFarmerrequest', farmerauthenticate, async (req, res) => {
     const userEmail = req.rootUser.email
-    // console.log(userEmail)
-    const data = await SellingRequest.find({$or:[{email_buyer: userEmail},{email_farmer: userEmail}]})
+    console.log(userEmail)
+    const data = await SellingRequest.find({ email_buyer: userEmail })
     res.send(data)
 })
+router.get('/getbuyingrequest', farmerauthenticate, async (req, res) => {
+    const userEmail = req.rootUser.email
+    // console.log(userEmail)
+    const data = await BuyingRequest.find({ email_farmer: userEmail })
+    res.send(data)
+})
+
+
 router.get('/getBuyerdata', async (req, res) => {
-    const buyerdata = await Farmer.find({role: "Buyer"})
+    const buyerdata = await Farmer.find({ role: "Buyer" })
     // console.log(buyerdata)
     res.send(buyerdata)
 })
 router.get('/getTransporterdata', async (req, res) => {
-    const transporterdata = await Farmer.find({role: "Transporter"})
+    const transporterdata = await Farmer.find({ role: "Transporter" })
     console.log(transporterdata)
     res.send(transporterdata)
 })
 router.get('/getFarmerdatas', async (req, res) => {
-    const farmerdata = await Farmer.find({role: "Farmer"})
-    console.log(farmerdata)
+    const farmerdata = await Farmer.find({ role: "Farmer" })
+    // console.log(farmerdata)
     res.send(farmerdata)
 })
 
 router.post('/updatebuyer', farmerauthenticate, async (req, res) => {
-    const {Crptype, offerprice} = req.body
+    const { Crptype, offerprice } = req.body
     console.log(req.body)
     const root = req.rootUser
     try {
@@ -168,6 +220,32 @@ router.post('/updatebuyer', farmerauthenticate, async (req, res) => {
             }
         })
         console.log(update)
+        res.status(200).json("Change Successful")
+    } catch (error) {
+        console.log(error)
+    }
+})
+router.post('accept', farmerauthenticate, async (req, res) => {
+    const { Request_Id } = req.body
+    console.log(req.body)
+    try {
+        const update = await SellingRequest.findOneAndUpdate({ _id: Request_Id }, { type: "Accepted", })
+        console.log(update)
+        res.status(200).json("Change Successful")
+    } catch (error) {
+        console.log(error)
+    }
+})
+router.post('/decline', farmerauthenticate, async (req, res) => {
+    const { Request_Id } = req.body
+    console.log(req.body)
+    try {
+        const update = await SellingRequest.findOneAndUpdate({ _id: Request_Id }, { type: "Declined", })
+        console.log(update)
+        if (update === null) {
+            const update = await BuyingRequest.findOneAndUpdate({ _id: Request_Id }, { type: "Declined", })
+            console.log(update)
+        }
         res.status(200).json("Change Successful")
     } catch (error) {
         console.log(error)
