@@ -40,6 +40,7 @@ const Navbar = () => {
                         <Link to="/buyer" className="a-navbar">Our Buyers</Link>
                         <Link to="/transporter" className="a-navbar">Our Transporters</Link>
                         <Link to="/notification-farmer" className="a-navbar">Notification</Link>
+                        <Link to="/requests" className="a-navbar">My Requests</Link>
                         <Link to="/logout" className="a-navbar">Logout</Link>
                     </nav>
                 )
@@ -53,6 +54,7 @@ const Navbar = () => {
                             <Link to="/transporter" className="a-navbar">Our Transporters</Link>
                             <Link to="/notification-buyer" className="a-navbar">Notification</Link>
                             <Link to="/set-info" className="a-navbar">Set Information</Link>
+                            <Link to="/requests" className="a-navbar">My Requests</Link>
                             <Link to="/logout" className="a-navbar">Logout</Link>
                         </nav>
                     )
@@ -65,6 +67,7 @@ const Navbar = () => {
                             <Link to="/transporter" className="a-navbar">Our Transporters</Link>
                             <Link to="/notification-buyer" className="a-navbar">Notification</Link>
                             <Link to="/set-info" className="a-navbar">Set Information</Link>
+                            <Link to="/requests" className="a-navbar">My Requests</Link>
                             <Link to="/logout" className="a-navbar">Logout</Link>
                         </nav>
                     )
@@ -75,6 +78,7 @@ const Navbar = () => {
                         <Link to="/" className="a-navbar">Home</Link>
                         <Link to="/about" className="a-navbar">Profile</Link>
                         <Link to="/requests-transporter" className="a-navbar">Transporting Requests</Link>
+                        <Link to="/requests" className="a-navbar">My Requests</Link>
                         <Link to="/logout" className="a-navbar">Logout</Link>
                     </nav>
                 )

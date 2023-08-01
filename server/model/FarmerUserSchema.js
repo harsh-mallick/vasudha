@@ -46,11 +46,11 @@ const userSchema = new mongoose.Schema({
     }, 
     Crptype: {
         type: String,
-        default: "Not set by farmer",
+        default: "Not set by user",
     },
     offerprice: {
         type: String,
-        default: "Not set by farmer",
+        default: "Not set by user",
     },
 
     tokens: [

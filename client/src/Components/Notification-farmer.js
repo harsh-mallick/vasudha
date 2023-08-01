@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import '../Css/Buyer.css'
 import GreenButtonWithPopover from './GreenButtonWithPopover';
 import RedButtonWithPopover from './RedButtonWithPopover';
+import BlueButtonWithPopover from './BlueButtonWithPopover';
 
 const Notificationfarmer = () => {
   const history = useNavigate()
@@ -61,14 +62,13 @@ const Notificationfarmer = () => {
                 <div class="card-content-buyer">
                   <h2 className='h2-buyer'>Buyer</h2>
                   <p className='p-buyer'>
-                  Request Id:&nbsp; {buyerdatas._id}<br/>
+                    Request Id:&nbsp; {buyerdatas._id}<br />
                     Name of Buyer:&nbsp; {buyerdatas.name_farmer}<br />
                     Email of Buyer:&nbsp; {buyerdatas.email_buyer}<br />
                     Selling Price:&nbsp; {buyerdatas.bprice}<br />
-                    Status:&nbsp; {buyerdatas.type}<br/>
-                <button className='btn btn-primary'>Accept Request</button>&nbsp; 
-                <RedButtonWithPopover buttonName = {"Decline Request"} /><br/><br/>
-                <GreenButtonWithPopover buttonName = {"Bargain"} style = {{width: "100%"}}/>
+                    Status:&nbsp; {buyerdatas.type}<br />
+                      <BlueButtonWithPopover buttonName={"Accept Request"} />&nbsp;
+                      <RedButtonWithPopover buttonName={"Decline Request"} /><br /><br />
                   </p>
                 </div>
               </div>

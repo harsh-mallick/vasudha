@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Buyerimg from '../Images/Wholesale.jpg'
 import { useNavigate } from 'react-router-dom';
 import '../Css/Buyer.css'
-import BlueButtonWithPopover from './BlueButtonWithPopover';
+import GreenButtonWithPopover from './GreenButtonWithPopover';
 import RedButtonWithPopover from './RedButtonWithPopover';
 
-const NotificationBuyer = () => {
+const Notificationfarmer = () => {
   const history = useNavigate()
   const [buyerData, setUserData] = useState({});
   document.addEventListener("DOMContentLoaded", function () {
@@ -14,7 +14,7 @@ const NotificationBuyer = () => {
 
   const getbuyerdata = async () => {
     try {
-      const res = await fetch("/getFarmerrequest", {
+      const res = await fetch("/requests", {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -52,27 +52,6 @@ const NotificationBuyer = () => {
     <div className="grid grid-4-col" style={{ marginLeft: "50px" }}>
       {
         Array.isArray(buyerData) && buyerData.map(buyerdatas => {
-          console.log(buyerdatas.type)
-          if(buyerdatas.type === "Pending"){
-          return (
-            <div className="card-buyer" key={buyerdatas._id}>
-              <div class="card-img-buyer">
-                <img src={Buyerimg} alt="Buyer Img" className='img-buyer' />
-              </div>
-              <div class="card-content-buyer">
-                <h2 className='h2-buyer'>Buyer</h2>
-                <p className='p-buyer'>
-                  Request Id:&nbsp; {buyerdatas._id}<br/>
-                  Name of Farmer:&nbsp; {buyerdatas.name_farmer}<br />
-                  Email of Farmer:&nbsp; {buyerdatas.email_farmer}<br />
-                  Selling Price:&nbsp; {buyerdatas.bprice}<br />
-                  Request Status:&nbsp; {buyerdatas.type}<br/>
-                </p>
-                      <BlueButtonWithPopover buttonName={"Accept Request"} />&nbsp;&nbsp;
-                <RedButtonWithPopover buttonName = {"Decline Request"} /><br/><br/>
-              </div>
-            </div>
-          )}else{
             return (
               <div className="card-buyer" key={buyerdatas._id}>
                 <div class="card-img-buyer">
@@ -81,21 +60,21 @@ const NotificationBuyer = () => {
                 <div class="card-content-buyer">
                   <h2 className='h2-buyer'>Buyer</h2>
                   <p className='p-buyer'>
-                    Name of Farmer:&nbsp; {buyerdatas.name_farmer}<br />
+                    Request Id:&nbsp; {buyerdatas._id}<br/>
+                    Name of Buyer:&nbsp; {buyerdatas.name_farmer}<br />
+                    Email of Buyer:&nbsp; {buyerdatas.email_buyer}<br />
                     Email of Farmer:&nbsp; {buyerdatas.email_farmer}<br />
                     Selling Price:&nbsp; {buyerdatas.bprice}<br />
-                  Request Status:&nbsp; {buyerdatas.type}<br/>
+                    Status:&nbsp; {buyerdatas.type}<br/>
                   </p>
                 </div>
               </div>
             )
-          }
         })
-        
       }
     </div>
   )
 
 }
 
-export default NotificationBuyer
+export default Notificationfarmer

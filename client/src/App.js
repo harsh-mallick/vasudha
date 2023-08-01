@@ -12,6 +12,7 @@ import NotificationFarmer from './Components/Notification-farmer';
 import NotificationBuyer from './Components/Notification-buyer';
 import NotificationTransporter from './Components/Notification-transporter';
 import Request from './Components/Request';
+import Requests from './Components/MyRequest_Buyer';
 import Setinfo from './Components/Setinfo';
 import OurTeam from './Components/OurTeam';
 
@@ -32,6 +33,7 @@ function App() {
           <Route path='/requests-transporter' element={<NotificationTransporter />} />
           <Route path='/notification-farmer' element={<NotificationFarmer />} />
           <Route path='/request' element={<Request />} />
+          <Route path='/requests' element={<Requests />} />
           <Route path='/set-info' element={<Setinfo />} />   
           <Route path='/team' element={<OurTeam/>}/>       
         </Routes>

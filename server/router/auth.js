@@ -94,11 +94,11 @@ router.post('/buying-request', farmerauthenticate, async (req, res) => {
     const email_buyer = req.rootUser.email
     const values = `{"name_farmer": "${name_farmer}", "email_buyer": "${email_buyer}"}`
     const fvalue = JSON.parse(values)
-    console.log(fvalue)
+    // console.log(fvalue)
     const { email_farmer, bprice } = req.body;
-    console.log(req.body)
+    // console.log(req.body)
     const totalvalue = { ...req.body, ...fvalue }
-    console.log(totalvalue)
+    // console.log(totalvalue)
     // Checking if any field is blank
     if (!name_farmer || !email_farmer) {
         console.log("Cannot cannot retrieve data as field is/ are blank")
@@ -109,7 +109,7 @@ router.post('/buying-request', farmerauthenticate, async (req, res) => {
 
         // Registering a new user 
         const Request = new BuyingRequest(totalvalue);
-        console.log(Request)
+        // console.log(Request)
 
         // Checking that registration successful or failed
         try {
@@ -144,20 +144,20 @@ router.post('/farmer-signin', async (req, res) => {
 
         // Checking if a user with an email  exists
         const userLogin = await Farmer.findOne({ email: email });
-        console.log(userLogin)
+        // console.log(userLogin)
 
         if (userLogin) {
             const isMatch = await bcrypt.compare(password + "23945", userLogin.password)
-            console.log(isMatch)
+            // console.log(isMatch)
 
             const token = await userLogin.generateAuthToken();
-            console.log(token)
+            // console.log(token)
 
             res.cookie("jwtoken", token, {
                 expires: new Date(Date.now() + 25892000000),
                 httpOnly: true,
             })
-            console.log(isMatch)
+            // console.log(isMatch)
 
             if (!isMatch) {
                 res.status(400).json({ error: "Incorrect credential" })
@@ -180,7 +180,7 @@ router.get('/getFarmerdata', farmerauthenticate, (req, res) => {
 })
 router.get('/getFarmerrequest', farmerauthenticate, async (req, res) => {
     const userEmail = req.rootUser.email
-    console.log(userEmail)
+    // console.log(userEmail)
     const data = await SellingRequest.find({ email_buyer: userEmail })
     res.send(data)
 })
@@ -189,6 +189,22 @@ router.get('/getbuyingrequest', farmerauthenticate, async (req, res) => {
     // console.log(userEmail)
     const data = await BuyingRequest.find({ email_farmer: userEmail })
     res.send(data)
+})
+router.get('/requests', farmerauthenticate, async (req, res) => {
+    const userRole = req.rootUser.role
+    console.log(userRole)
+    const userEmail = req.rootUser.email
+    console.log(userEmail)
+    if (userRole === "Farmer") {
+        const data = await SellingRequest.find({ email_farmer: userEmail })
+        res.send(data)
+    }else if (userRole === "Buyer") {
+        const data = await BuyingRequest.find({ email_buyer: userEmail })
+        console.log(data)
+        res.send(data)
+    }
+    // console.log(userEmail)
+
 })
 
 
@@ -210,7 +226,7 @@ router.get('/getFarmerdatas', async (req, res) => {
 
 router.post('/updatebuyer', farmerauthenticate, async (req, res) => {
     const { Crptype, offerprice } = req.body
-    console.log(req.body)
+    // console.log(req.body)
     const root = req.rootUser
     try {
         const update = await Farmer.findByIdAndUpdate({ _id: root._id }, {
@@ -225,12 +241,16 @@ router.post('/updatebuyer', farmerauthenticate, async (req, res) => {
         console.log(error)
     }
 })
-router.post('accept', farmerauthenticate, async (req, res) => {
+router.post('/accept', farmerauthenticate, async (req, res) => {
     const { Request_Id } = req.body
-    console.log(req.body)
+    // console.log(req.body)
     try {
         const update = await SellingRequest.findOneAndUpdate({ _id: Request_Id }, { type: "Accepted", })
         console.log(update)
+        if (update === null) {
+            const update = await BuyingRequest.findOneAndUpdate({ _id: Request_Id }, { type: "Accepted", })
+            // console.log(update)
+        }
         res.status(200).json("Change Successful")
     } catch (error) {
         console.log(error)
@@ -238,13 +258,13 @@ router.post('accept', farmerauthenticate, async (req, res) => {
 })
 router.post('/decline', farmerauthenticate, async (req, res) => {
     const { Request_Id } = req.body
-    console.log(req.body)
+    // console.log(req.body)
     try {
         const update = await SellingRequest.findOneAndUpdate({ _id: Request_Id }, { type: "Declined", })
         console.log(update)
         if (update === null) {
             const update = await BuyingRequest.findOneAndUpdate({ _id: Request_Id }, { type: "Declined", })
-            console.log(update)
+            // console.log(update)
         }
         res.status(200).json("Change Successful")
     } catch (error) {
