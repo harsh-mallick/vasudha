@@ -1,0 +1,38 @@
+.header-navbar {
+    font-family: 'Poppins', sans-serif;
+    padding: 20px 100px;
+    background:rgba(3, 34, 82, 0.484);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+}
+
+.header-navbar .nav-navbar .a-navbar{
+    text-align: right;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    margin: 20px;
+    transition: all .5s ease-in-out;
+}
+.nav-navbar{
+    align-items: center;
+}
+
+.header-navbar .nav-navbar{
+    text-align: right;
+    display: inline-flex;
+}
+
+.header-navbar .nav-navbar .a-navbar:hover{
+    color: aqua;
+}
+
+.header-navbar .h2-navbar {
+    text-align: left;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    margin: 0;
+    user-select: none;
+    display: inline-block;
+}
