@@ -21,6 +21,9 @@
         "tb3": "Enter your message: "
     },
     "navbar":{
-        
+        "n1": "Home",
+        "n2": "Profile",
+        "n3": "My Requests",
+        "n4": "Logout"
     }
 }
