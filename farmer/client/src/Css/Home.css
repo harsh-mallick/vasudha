@@ -21,7 +21,9 @@
 }
 .main{
     background-color:rgba(132, 126, 126, 0.5);
+    margin-top: 349px
 }
+
 .logoimg {
     width: 300px;
     margin-top: 10px;
@@ -44,7 +46,7 @@
 
 .home-section {
     background-image: url("../Images/carsoul1.jpeg");
-    min-height: 500px;
+    min-height: 840px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -120,7 +122,6 @@
     border-bottom: 2px solid rgb(0, 0, 0);
     color: rgb(0, 0, 0);
     background: none;
-    transition: all .5s ease-in-out;
 }
 .home_name::placeholder{
     color: black;
@@ -166,7 +167,6 @@
     border-bottom: 2px solid rgb(0, 0, 0);
     color: rgb(0, 0, 0);
     background: none;
-    transition: all .5s ease-in-out;
 }
 .input-home{
     height: 50px;

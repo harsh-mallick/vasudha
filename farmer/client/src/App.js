@@ -10,6 +10,7 @@ import Transporter from './Components/Transporter';
 import NotificationFarmer from './Components/Notification-farmer';
 import Requests from './Components/MyRequest_Buyer';
 import OurTeam from './Components/OurTeam';
+import WeatherDetails from './Components/WeatherDetails';
 
 function App() {
   return (
@@ -25,7 +26,9 @@ function App() {
           <Route path='/transporter' element={<Transporter />} />
           <Route path='/notification-farmer' element={<NotificationFarmer />} />
           <Route path='/requests' element={<Requests />} />
-          <Route path='/team' element={<OurTeam/>}/>       
+          <Route path='/team' element={<OurTeam/>}/>  
+          <Route path='/weatherdetails' element={<WeatherDetails/>}/>     
+          
         </Routes>
       </Router>
 

@@ -4,6 +4,23 @@ import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 
 const Home = () => {
+    const [scrollt, setScrollt] = useState(0)
+    window.addEventListener("scroll", () => {
+        const verticalScrollPx = window.scrollY || window.pageYOffset;
+        console.log(verticalScrollPx)
+        if (verticalScrollPx < 1000) {
+            setScrollt(1)
+            console.log(scrollt)
+        } else {
+            setScrollt(0)
+        }
+    })
+    if (scrollt === 1) {
+        document.body.style.overflow = "hidden"
+    } else {
+        document.body.style.overflow = "scroll"
+    }
+
     const { t } = useTranslation();
 
     const [user, setUser] = useState({
@@ -67,7 +84,7 @@ const Home = () => {
     window.addEventListener("load", payloadfalse)
 
     return (
-        <>
+        <div id='mainhome'>
             <div className='home-section' id="home-section">
                 <div className="connta">
                     <div className="logo">
@@ -81,7 +98,7 @@ const Home = () => {
             <div className="content-1" style={{ border: "3px dotted black", marginLeft: "20px", marginRight: "20px" }}>
                 <div className="maincontent" style={{ textAlign: "center", backgroundColor: "rgba(211,211,211, 0.8)", }}>
                     <h1 className='homeh1' style={{ textAlign: "center", fontSize: "40px", textDecoration: "underline" }}>{t('description.title')}</h1>
-                        <h5 className='h5'>{t('description.d1')} <br />
+                    <h5 className='h5'>{t('description.d1')} <br />
                         {t('description.d2')} <br />
                         {t('description.d3')}<br /><br />
 
@@ -95,19 +112,19 @@ const Home = () => {
             <div className="content-2" style={{ border: "3px dotted black", marginLeft: "20px", marginRight: "20px", }}>
                 <div className="maincontent" style={{ width: "100%", backgroundColor: "rgba(211,211,211,0.37)", paddingLeft: "20px" }}>
                     <h1 className='homeh1' style={{ color: "black", textAlign: "center", webkitTextStroke: "2px white" }}>{t('contact.title')}</h1>
-                        < h5 className='h5'>
+                    < h5 className='h5'>
                         <form action="">
                             <div className="input-box-home">
                                 <label htmlFor="cname" style={{ color: "black" }}>{t('contact.tb1')}&nbsp;</label><br />
-                                    < input type="text" name="cname" id="cname" className="home_name input-home" value={user.cname} onChange={handleInput} /><br />
+                                < input type="text" name="cname" id="cname" className="home_name input-home" value={user.cname} onChange={handleInput} /><br />
                             </div><br />
                             <div className="input-box-home">
                                 <label htmlFor="cemail" style={{ color: "black" }}>{t('contact.tb2')}&nbsp;</label><br />
-                                    < input type="text" name="cemail" id="cemail" className="home_email input-home" value={user.cemail} onChange={handleInput} /><br />
+                                < input type="text" name="cemail" id="cemail" className="home_email input-home" value={user.cemail} onChange={handleInput} /><br />
                             </div><br />
                             <div className="input-box-home">
                                 <label htmlFor="cmessage" style={{ color: "black" }}>{t('contact.tb3')}&nbsp;</label><br />
-                                    <textarea textarea name="cmessage" id="cmessage" cols="30" rows="10" className='home_message' value={user.cmessage} onChange={handleInput}></textarea><br />
+                                <textarea textarea name="cmessage" id="cmessage" cols="30" rows="10" className='home_message' value={user.cmessage} onChange={handleInput}></textarea><br />
                             </div><br /><br />
                             <div className="buttion-home">
                                 <button type="submit" className='button-home' onClick={email}>{t('Submit')}</button>
@@ -116,7 +133,7 @@ const Home = () => {
                     </h5>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

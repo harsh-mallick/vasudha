@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import '../Css/Navbar.css'
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
+import AgrinetLogo from '../Images/Agrinet-Logo.jpg'
 
 const Navbar = () => {
     const [userData, setUserData] = useState({});
@@ -76,6 +77,7 @@ const Navbar = () => {
                     <Link to="/transporter" className="a-navbar">Our Transporters</Link>
                     <Link to="/notification-farmer" className="a-navbar">Notification</Link>
                     <Link to="/requests" className="a-navbar">My Requests</Link>
+                    <Link to="/weatherdetails" className='a-navbar'>Weather Detials</Link>
                     <Link to="/logout" className="a-navbar">Logout</Link>
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -131,8 +133,8 @@ const Navbar = () => {
     }
     return (
         <div>
-            <header className='header-navbar' style={{ "display": "inlineFlex" }}>
-                <h2 className='h2-navbar'>Vasudha</h2>
+            <header className='header-navbar' style={{ "display": "inlineFlex", width: "100%" }}>
+                <img src={AgrinetLogo} alt="Agrinet Logo" style={{ height: "105px", margin: "0", marginTop: "-25px", marginBottom: "-22px", borderRadius: "8px" }} />
                 <RenderMenu />
             </header>
         </div>
